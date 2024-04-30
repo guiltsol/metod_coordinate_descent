@@ -21,15 +21,17 @@ double golden_section_search(std::function<double(double)> f, double a, double b
     return (b + a) / 2; // Возвращаем середину полученного отрезка как приближенное значение минимума.
 }
 
-// Функция для покоординатного спуска
-std::vector<double> coordinate_descent(std::function<double(std::vector<double>)> f, std::vector<double> x0, double tol = 0.001) {
+// Функция для покоординатного спуска с альтернативным направлением
+std::vector<double> alternate_coordinate_descent(std::function<double(std::vector<double>)> f, std::vector<double> x0, double tol = 0.001) {
     std::vector<double> x = x0; // Инициализируем вектор x начальным приближением.
     const int n = x.size(); // Получаем размерность пространства.
     int iter_count = 0; // Инициализируем счетчик итераций.
     double prev_f = f(x); // Вычисляем значение функции в начальной точке.
-    while (true) { // Бесконечный цикл (до достижения критерия останова).
+    while (iter_count<25) { // Бесконечный цикл (до достижения критерия останова).
         std::vector<double> prev_x = x; // Сохраняем предыдущее значение точки.
-        for (int i = 0; i < n; ++i) { // Перебираем все координаты точки.
+
+        // Итерации по координате x
+        for (int i = 0; i < n; i += 2) { // Перебираем все координаты x.
             // Функция для минимизации по i-ой переменной
             auto phi = [&](double alpha) { // Лямбда-функция для вычисления значения функции в точке с измененной i-ой координатой.
                 std::vector<double> new_x = x; // Создаем копию текущей точки.
@@ -40,23 +42,49 @@ std::vector<double> coordinate_descent(std::function<double(std::vector<double>)
             double alpha_min = golden_section_search(phi, x[i] - 1, x[i] + 1, tol); // Вычисляем минимум функции по i-ой координате методом золотого сечения.
             x[i] = alpha_min; // Обновляем i-ую координату текущей точки.
         }
-        double current_f = f(x); // Вычисляем значение функции в текущей точке.
+
         // Выводим номер итерации, текущую точку и значение функции
         std::cout << "Итерация " << iter_count + 1 << ": Точка = [";
         for (int i = 0; i < n; ++i) { // Выводим текущую точку.
             std::cout << x[i];
             if (i < n - 1) std::cout << ", ";
         }
-        std::cout << "], f(x) = " << current_f << std::endl; // Выводим значение функции в текущей точке.
-        // Проверка на сходимость
-        if (std::abs(current_f - prev_f) < tol) { // Если изменение значения функции между итерациями меньше заданной точности...
-            break; // ...то завершаем цикл.
-        }
-        prev_f = current_f; // Сохраняем значение функции для следующей итерации.
+        std::cout << "], f(x) = " << f(x) << std::endl; // Выводим значение функции в текущей точке.
+
         iter_count++; // Увеличиваем счетчик итераций.
+
+        // Проверка на сходимость
+       
+
+        // Итерации по координате y
+        for (int i = 1; i < n; i += 2) { // Перебираем все координаты y.
+            // Функция для минимизации по i-ой переменной
+            auto phi = [&](double alpha) { // Лямбда-функция для вычисления значения функции в точке с измененной i-ой координатой.
+                std::vector<double> new_x = x; // Создаем копию текущей точки.
+                new_x[i] = alpha; // Обновляем i-ую координату в новой точке.
+                return f(new_x); // Вычисляем значение функции в новой точке.
+                };
+            // Используем метод золотого сечения для определения шага
+            double alpha_min = golden_section_search(phi, x[i] - 1, x[i] + 1, tol); // Вычисляем минимум функции по i-ой координате методом золотого сечения.
+            x[i] = alpha_min; // Обновляем i-ую координату текущей точки.
+        }
+
+        // Выводим номер итерации, текущую точку и значение функции
+        std::cout << "Итерация " << iter_count + 1 << ": Точка = [";
+        for (int i = 0; i < n; ++i) { // Выводим текущую точку.
+            std::cout << x[i];
+            if (i < n - 1) std::cout << ", ";
+        }
+        std::cout << "], f(x) = " << f(x) << std::endl; // Выводим значение функции в текущей точке.
+
+        iter_count++; // Увеличиваем счетчик итераций.
+
+        // Проверка на сходимость
+        
     }
     return x; // Возвращаем точку минимума.
 }
+
 
 // Пример использования:
 double example_function(std::vector<double> x) { // Пример функции для минимизации.
@@ -66,7 +94,7 @@ double example_function(std::vector<double> x) { // Пример функции для минимизац
 int main() {
     setlocale(LC_ALL, "Russian");
     std::vector<double> initial_guess = { -10, 10 }; // Начальное приближение.
-    std::vector<double> minimum_point = coordinate_descent(example_function, initial_guess); // Вызов метода покоординатного спуска.
+    std::vector<double> minimum_point = alternate_coordinate_descent(example_function, initial_guess); // Вызов метода покоординатного спуска.
     std::cout << "Точка минимума: ["; // Выводим сообщение о найденной точке минимума.
     for (int i = 0; i < minimum_point.size(); ++i) { // Выводим координаты точки минимума.
         std::cout << minimum_point[i];
