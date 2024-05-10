@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "metods_multi_perem", "metods_multi_perem.vcxproj", "{00E4824A-4F42-47A9-A179-65559C153EC9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gradmetod", "..\gradmetod\gradmetod.vcxproj", "{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{00E4824A-4F42-47A9-A179-65559C153EC9}.Release|x64.Build.0 = Release|x64
 		{00E4824A-4F42-47A9-A179-65559C153EC9}.Release|x86.ActiveCfg = Release|Win32
 		{00E4824A-4F42-47A9-A179-65559C153EC9}.Release|x86.Build.0 = Release|Win32
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Debug|x64.ActiveCfg = Debug|x64
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Debug|x64.Build.0 = Debug|x64
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Debug|x86.ActiveCfg = Debug|Win32
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Debug|x86.Build.0 = Debug|Win32
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Release|x64.ActiveCfg = Release|x64
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Release|x64.Build.0 = Release|x64
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Release|x86.ActiveCfg = Release|Win32
+		{EAA15CFE-EDDC-4311-9EBE-07E6FF73303E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

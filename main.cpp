@@ -26,8 +26,8 @@ std::vector<double> alternate_coordinate_descent(std::function<double(std::vecto
     std::vector<double> x = x0; // Инициализируем вектор x начальным приближением.
     const int n = x.size(); // Получаем размерность пространства.
     int iter_count = 0; // Инициализируем счетчик итераций.
-    double prev_f = f(x); // Вычисляем значение функции в начальной точке.
-    while (iter_count<25) { // Бесконечный цикл (до достижения критерия останова).
+    //double prev_f = f(x); // Вычисляем значение функции в начальной точке.
+    while (iter_count<16) { // Бесконечный цикл (до достижения критерия останова).
         std::vector<double> prev_x = x; // Сохраняем предыдущее значение точки.
 
         // Итерации по координате x
